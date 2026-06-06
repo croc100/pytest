@@ -1914,12 +1914,11 @@ class TestFixtureManagerParseFactories:
             @pytest.hookimpl(wrapper=True)
             def pytest_collection(session):
                 result = yield
-                fm = session._fixturemanager
                 item = session.items[0]
-                fm._register_fixture(name="fix", func=lambda: "session1", node=session)
-                fm._register_fixture(name="fix", func=lambda fix: f"item1-{fix}", node=item)
-                fm._register_fixture(name="fix", func=lambda fix: f"item2-{fix}", node=item)
-                fm._register_fixture(name="fix", func=lambda: "session2", node=session)
+                pytest.register_fixture(name="fix", func=lambda: "session1", node=session)
+                pytest.register_fixture(name="fix", func=lambda fix: f"item1-{fix}", node=item)
+                pytest.register_fixture(name="fix", func=lambda fix: f"item2-{fix}", node=item)
+                pytest.register_fixture(name="fix", func=lambda: "session2", node=session)
                 return result
             """
         )
